@@ -2,311 +2,254 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Crypto.com Support</title>
+  <title>Coinbase Wallet Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e9f0ff, #f4f7fb);
+      color: #333;
+      padding-bottom: 50px;
+    }
+
+    a { color: #0052ff; text-decoration: none; cursor: pointer; }
+
+    header, footer {
+      background: #ffffff;
+      padding: 15px 30px;
       display: flex;
-      background-color: #f5f7fa;
-      color: #333;
-      min-height: 100vh;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
     }
 
-    aside {
-      width: 240px;
-      background-color: #ffffff;
-      border-right: 1px solid #ddd;
-      padding: 2rem 1rem;
-      height: 100vh;
-      position: fixed;
-    }
+    .logo { font-weight: bold; font-size: 1.7em; color: #0052ff; }
+    .header-controls { display: flex; gap: 15px; align-items: center; }
 
-    aside h2 {
-      color: #0050aa;
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    aside nav a {
-      display: block;
-      padding: 0.8rem 1rem;
-      margin-bottom: 0.5rem;
-      color: #333;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s;
+    .btn-blue {
+      background: #0052ff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
+    .btn-blue:hover { background: #003ecc; }
 
-    aside nav a:hover,
-    aside nav a.active {
-      background-color: #e0f0ff;
-      font-weight: bold;
-    }
-
-    main {
-      margin-left: 240px;
-      padding: 2rem;
-      flex: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header {
-      margin-bottom: 2rem;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      color: #0050aa;
-    }
+    .main { padding: 30px; }
 
     .search-bar {
-      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      background: white;
+      padding: 12px 15px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     .search-bar input {
-      width: 100%;
-      max-width: 500px;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      flex: 1;
+      border: none;
+      font-size: 1em;
+      outline: none;
     }
 
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .quick-link {
+      padding: 12px 18px;
+      background: #e6f0ff;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #0052ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s ease;
+    }
+
+    .quick-link:hover { background: #d0e4ff; }
+
+    .section-title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      font-weight: bold;
     }
 
     .card {
-      background-color: #fff;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    .card:hover { transform: translateY(-2px); }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .card h3 {
-      color: #0050aa;
-      margin-bottom: 0.5rem;
+    .radio-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      width: 30%;
+      min-width: 250px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    .card p {
-      font-size: 0.9rem;
-      color: #555;
+    .radio-card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .radio-card i {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #0052ff;
+    }
+
+    .newsletter {
+      margin: 40px 0;
+      padding: 30px;
+      background: #eef5ff;
+      border-radius: 8px;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      background: #d4edda;
+      color: green;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
     footer {
+      padding: 40px 30px;
+      background: white;
+      border-top: 1px solid #ddd;
       text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
-      color: #888;
-      margin-top: auto;
     }
 
-    .support-fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #0050aa;
-      color: white;
-      padding: 0.9rem 1.2rem;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      z-index: 100;
-    }
-
-    .support-fab:hover {
-      background-color: #003e8a;
+    @media (max-width: 768px) {
+      .radio-card { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <aside>
-    <h2>Crypto.com</h2>
-    <nav id="sidebar-nav">
-      <a href="#" data-section="home" class="active">Home</a>
-      <a href="#" data-section="account-help">Account Help</a>
-      <a href="#" data-section="app-features">App Features</a>
-      <a href="#" data-section="card-issues">Card Issues</a>
-      <a href="#" data-section="security">Security</a>
-    </nav>
-  </aside>
 
-  <main>
-    <div class="header">
-      <h1 id="section-title">Help Center</h1>
-      <div class="search-bar" id="search-container">
-        <input type="text" placeholder="Search help topics..." />
-      </div>
-    </div>
+<header>
+  <div class="logo"><a href="#">Coinbase</a></div>
+  <div class="header-controls">
+    <button class="btn-blue">Sign in</button>
+    <span><i class="fas fa-globe"></i> US</span>
+    <span><i class="fas fa-bars"></i></span>
+  </div>
+</header>
 
-    <div id="content">
-      <!-- Default home content -->
-      <div class="categories">
-        <div class="card">
-          <h3>Account Setup</h3>
-          <p>Creating and verifying your Crypto.com account.</p>
-        </div>
-        <div class="card">
-          <h3>Crypto Wallet</h3>
-          <p>How to deposit, withdraw, and manage your crypto.</p>
-        </div>
-        <div class="card">
-          <h3>Crypto.com Card</h3>
-          <p>Visa card delivery, activation, and usage support.</p>
-        </div>
-        <div class="card">
-          <h3>2FA & Security</h3>
-          <p>Securing your account with two-factor authentication.</p>
-        </div>
-        <div class="card">
-          <h3>Trading & Fees</h3>
-          <p>Learn about exchange fees, spreads, and trading tools.</p>
-        </div>
-        <div class="card">
-          <h3>Still Need Help?</h3>
-          <p>Reach out to our support team for personal assistance.</p>
-        </div>
-      </div>
-    </div>
+<main class="main">
 
-    <footer>
-      &copy; 2025 Crypto.com
-    </footer>
-  </main>
+  <div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input type="text" placeholder="Search for help or topics..." />
+  </div>
 
-  <button class="support-fab" onclick="alert('Opening live support...')">Support</button>
+  <div class="quick-links">
+    <a href="#" class="quick-link"><i class="fas fa-lock"></i> Password Reset</a>
+    <a href="#" class="quick-link"><i class="fas fa-user-lock"></i> Account Recovery</a>
+    <a href="#" class="quick-link"><i class="fas fa-shield-alt"></i> Security Tips</a>
+    <a href="#" class="quick-link"><i class="fas fa-bug"></i> Report an Issue</a>
+  </div>
 
-  <script>
-    const navLinks = document.querySelectorAll('#sidebar-nav a');
-    const content = document.getElementById('content');
-    const sectionTitle = document.getElementById('section-title');
-    const searchContainer = document.getElementById('search-container');
+  <div class="section-title">We’re here to help</div>
 
-    const sections = {
-      'home': `
-        <div class="categories">
-          <div class="card">
-            <h3>Account Setup</h3>
-            <p>Creating and verifying your Crypto.com account.</p>
-          </div>
-          <div class="card">
-            <h3>Crypto Wallet</h3>
-            <p>How to deposit, withdraw, and manage your crypto.</p>
-          </div>
-          <div class="card">
-            <h3>Crypto.com Card</h3>
-            <p>Visa card delivery, activation, and usage support.</p>
-          </div>
-          <div class="card">
-            <h3>2FA & Security</h3>
-            <p>Securing your account with two-factor authentication.</p>
-          </div>
-          <div class="card">
-            <h3>Trading & Fees</h3>
-            <p>Learn about exchange fees, spreads, and trading tools.</p>
-          </div>
-          <div class="card">
-            <h3>Still Need Help?</h3>
-            <p>Reach out to our support team for personal assistance.</p>
-          </div>
-        </div>
-      `,
-      'account-help': `
-        <h2>Account Help</h2>
-        <p>Here you can find information about account setup, verification, and troubleshooting.</p>
-        <ul>
-          <li>How to create an account</li>
-          <li>Account verification process</li>
-          <li>Resetting your password</li>
-          <li>Managing account settings</li>
-        </ul>
-      `,
-      'app-features': `
-        <h2>App Features</h2>
-        <p>Learn about all the features of the Crypto.com app.</p>
-        <ul>
-          <li>Buying and selling cryptocurrencies</li>
-          <li>Staking and rewards</li>
-          <li>Setting price alerts</li>
-          <li>Managing your portfolio</li>
-        </ul>
-      `,
-      'card-issues': `
-        <h2>Card Issues</h2>
-        <p>Support for Crypto.com Visa card users.</p>
-        <ul>
-          <li>Card activation</li>
-          <li>Card delivery status</li>
-          <li>Reporting lost or stolen cards</li>
-          <li>Card usage and limits</li>
-        </ul>
-      `,
-      'security': `
-        <h2>Security</h2>
-        <p>Protect your account with security best practices.</p>
-        <ul>
-          <li>Two-factor authentication setup</li>
-          <li>Recognizing phishing attempts</li>
-          <li>Account recovery options</li>
-          <li>Privacy settings</li>
-        </ul>
-      `
-    };
+  <div class="card">
+    <h2>Sign in for personalized support</h2>
+    <p>Access your support history, live chat with agents, and get tailored guidance by signing in.</p>
+    <button class="btn-blue">Sign in for support</button>
+    <p style="margin-top: 10px;">Unable to sign in? <strong>Click here</strong></p>
+  </div>
 
-    function setActiveLink(section) {
-      navLinks.forEach(link => {
-        if (link.dataset.section === section) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
+  <!-- Image 1: Wallet Interface -->
+  <div class="card">
+    <img src="coinbase1.jpg" alt="Coinbase Wallet Interface" style="width:100%; border-radius:10px; margin-bottom:10px;" />
+    <p>View your balance, send/receive funds, access Coinbase Wallet, and more.</p>
+  </div>
 
-    function loadSection(section) {
-      if (section === 'home') {
-        sectionTitle.textContent = 'Help Center';
-        searchContainer.style.display = 'block';
-      } else {
-        sectionTitle.textContent = section.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        searchContainer.style.display = 'none';
-      }
+  <!-- Image 2: Staking Promo -->
+  <div class="card">
+    <img src="coinbase2.jpg" alt="Earn APY with Coinbase Staking" style="width:100%; border-radius:10px; margin-bottom:10px;" />
+    <h3>Earn up to 14% APY</h3>
+    <p>Stake your crypto and earn rewards. Explore staking options with Coinbase.</p>
+    <a href="#" class="btn-blue">Explore staking options</a>
+  </div>
 
-      content.innerHTML = sections[section] || '<p>Section not found.</p>';
-      setActiveLink(section);
-    }
+  <!-- Image 3: Withdrawal Sample -->
+  <div class="card">
+    <img src="coinbase3.jpg" alt="Withdraw Funds Example" style="width:100%; border-radius:10px; margin-bottom:10px;" />
+    <p>Instant GBP withdrawals with zero Coinbase fees.</p>
+  </div>
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const section = link.dataset.section;
-        loadSection(section);
-      });
-    });
-  </script>
+  <!-- Image 4: Trading Interface -->
+  <div class="card">
+    <img src="coinbase4.jpg" alt="Coinbase Advanced Trade View" style="width:100%; border-radius:10px; margin-bottom:10px;" />
+    <h3>Advanced Trade</h3>
+    <p>Monitor real-time charts, set limit orders, and trade securely on Coinbase Pro tools.</p>
+  </div>
+
+  <div class="section-title">More Coinbase Resources</div>
+  <div class="radio-group">
+    <a href="#" class="radio-card"><i class="fas fa-wallet"></i><strong>Wallet</strong></a>
+    <a href="#" class="radio-card"><i class="fas fa-credit-card"></i><strong>Card</strong></a>
+    <a href="#" class="radio-card"><i class="fas fa-image"></i><strong>NFT</strong></a>
+    <a href="#" class="radio-card"><i class="fas fa-chart-line"></i><strong>Prime</strong></a>
+  </div>
+
+  <div class="newsletter">
+    <h3><i class="fas fa-envelope-open-text"></i> Stay updated</h3>
+    <p>Receive security alerts, new features, and market insights.</p>
+    <input type="email" placeholder="you@example.com" />
+    <button class="btn-blue">Subscribe</button>
+  </div>
+
+  <p><strong>System Status:</strong> <span class="status-indicator">✔ All systems operational</span></p>
+
+</main>
+
+<footer>
+  <p>© 2025 Coinbase Support. All rights reserved.</p>
+</footer>
 <!-- Begin of Chaport Live Chat code --> <script type="text/javascript"> (function(w,d,v3){ w.chaportConfig = { appId : '687554bb5f5872b4d5e588d9' };  if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.com/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document); </script> <!-- End of Chaport Live Chat code -->
 </body>
 </html>
